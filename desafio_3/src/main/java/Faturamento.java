@@ -9,8 +9,9 @@ import java.util.List;
 import java.util.Scanner;
 
 public class Faturamento {
+
 	public static void main(String[] args) {
-		List<Double> faturamentos = lerFaturamento("faturamento.json");
+		List<Double> faturamentos = lerFaturamento("dados.json");
 
 		if (faturamentos.isEmpty()) {
 			System.out.println("Não há dados de faturamento disponíveis.");
@@ -20,6 +21,7 @@ public class Faturamento {
 		double menorFaturamento = faturamentos.stream().min(Double::compare).orElse(0.0);
 		double maiorFaturamento = faturamentos.stream().max(Double::compare).orElse(0.0);
 		double mediaFaturamento = faturamentos.stream().mapToDouble(Double::doubleValue).average().orElse(0.0);
+
 		long diasAcimaDaMedia = faturamentos.stream().filter(valor -> valor > mediaFaturamento).count();
 
 		System.out.println("Menor faturamento: " + menorFaturamento);
@@ -29,6 +31,7 @@ public class Faturamento {
 
 	private static List<Double> lerFaturamento(String nomeArquivo) {
 		List<Double> faturamentos = new ArrayList<>();
+
 		try (InputStream inputStream = Faturamento.class.getClassLoader().getResourceAsStream(nomeArquivo);
 			 Scanner scanner = new Scanner(inputStream, StandardCharsets.UTF_8.name())) {
 
@@ -43,16 +46,18 @@ public class Faturamento {
 			}
 
 			String conteudo = scanner.useDelimiter("\\A").next();
-			JSONObject json = new JSONObject(conteudo);
-			JSONArray faturamentoArray = json.getJSONArray("faturamento");
+
+			JSONArray faturamentoArray = new JSONArray(conteudo);
 
 			for (int i = 0; i < faturamentoArray.length(); i++) {
 				JSONObject item = faturamentoArray.getJSONObject(i);
 				double valor = item.getDouble("valor");
+
 				if (valor > 0) {
 					faturamentos.add(valor);
 				}
 			}
+
 		} catch (IOException e) {
 			System.err.println("Erro ao ler o arquivo: " + e.getMessage());
 			e.printStackTrace();
@@ -60,6 +65,7 @@ public class Faturamento {
 			System.err.println("Erro inesperado: " + e.getMessage());
 			e.printStackTrace();
 		}
+
 		return faturamentos;
 	}
 }

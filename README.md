@@ -8,7 +8,7 @@ Contém o código, cujo o resultado do desafio é 91.
 Contém o código sobre a sequência de Fibonacci.
 
 #### [Desafio_3](https://github.com/Guxlhrm/desafio-estagio-sp/tree/main/desafio_3/src/main/java)
-Contém o código que faz calculos a partir de uma nota de faturamento em JSON.
+Contém o código que faz cálculos a partir de uma nota de faturamento em JSON.
 
 #### [Desafio_4](https://github.com/Guxlhrm/desafio-estagio-sp/tree/main/desafio_4)
 Contém o código que calcula o percentual de representação que cada estado teve dentro do valor mensal da distribuidora.
